@@ -1,8 +1,9 @@
+import os
 from datetime import datetime, timedelta
 from airflow import DAG
 from airflow.providers.docker.operators.docker import DockerOperator
 from airflow.operators.empty import EmptyOperator
-from airflow.hooks.base import BaseHook
+from airflow.models import Variable
 
 default_args = {
     "owner": "airflow",
@@ -15,30 +16,19 @@ default_args = {
     "retry_delay": timedelta(minutes=5),
 }
 
-def get_aws_env_vars(conn_id="aws_default"):
-    try:
-        # Fetch the connection object
-        conn = BaseHook.get_connection(conn_id)
-        
-        # Build the dictionary
-        env_vars = {
-            "AWS_ACCESS_KEY_ID": conn.login,
-            "AWS_SECRET_ACCESS_KEY": conn.password,
-            "AWS_DEFAULT_REGION": conn.extra_dejson.get("region_name", "us-east-1")
-        }
-        
-        # Handle temporary credentials (if using STS/Role assumption)
-        if conn.extra_dejson.get("aws_session_token"):
-             env_vars["AWS_SESSION_TOKEN"] = conn.extra_dejson.get("aws_session_token")
-             
-        return env_vars
-    except Exception as e:
-        print(f"Warning: Could not fetch AWS connection {conn_id}: {e}")
-        return {}
+
 
 TAGS = ["apache-spark", "python-polars", "sql", "pyspark", "dbt", "docker", "airflow"]
 
-aws_env = get_aws_env_vars("aws_default")
+# Get AWS credentials from environment variables
+aws_env = {
+    "AWS_ACCESS_KEY_ID": Variable.get("AWS_ACCESS_KEY_ID", ""),
+    "AWS_SECRET_ACCESS_KEY": Variable.get("AWS_SECRET_ACCESS_KEY", ""),
+    "AWS_DEFAULT_REGION": Variable.get("AWS_DEFAULT_REGION", "us-east-1"),
+}
+
+
+
 
 with DAG(
     "clean_docker_dag",
@@ -60,6 +50,7 @@ with DAG(
             command=f"python3 -m capstonellm.tasks.clean -t {tag}",
             docker_url="unix://var/run/docker.sock",
             network_mode="bridge",
+            environment=aws_env,
         )
         clean_tasks.append(task)
         start_dag >> task
