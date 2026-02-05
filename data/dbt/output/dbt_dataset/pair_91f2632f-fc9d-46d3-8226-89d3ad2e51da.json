@@ -1,0 +1,5 @@
+{
+    "title": "while running the dbt run command gets error",
+    "question_body": "<p>connection to dbt and snowfalke was successful but when tried to run this command:</p>\n<pre><code>$ dbt run\n</code></pre>\n<p>it gives this error</p>\n<blockquote>\n<p>ERROR: Runtime Error\nCould not find profile named 'learn_dbt'\nEncountered an error:\nRuntime Error\nCould not run dbt&quot;</p>\n</blockquote>\n<p>Am I making any command mistake?</p>\n",
+    "answer_body": "<p>There are a few different approaches to solving to this problem:</p>\n<ol>\n<li>Check the profile key in your <code>dbt_project.yml</code></li>\n<li>Check the profiles you have in your <code>profiles.yml</code></li>\n<li>Run <code>dbt debug --config-dir</code> to check where dbt thinks your config file is.</li>\n</ol>\n<p>See the dbt documentation <a href=\"https://docs.getdbt.com/docs/guides/debugging-errors#could-not-find-profile\" rel=\"noreferrer\">here</a></p>\n"
+}

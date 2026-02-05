@@ -1,0 +1,5 @@
+{
+    "title": "Add index to dbt model column?",
+    "question_body": "<p>We are considering using dbt to manage models in our PostgreSQL data warehouse. Since dbt models are SQL select statements, there doesn't seem to be an obvious, or documented, way to specify that a particular column should have an index.</p>\n<p>How can we specify column indexes on dbt models?</p>\n",
+    "answer_body": "<p>From <a href=\"https://docs.getdbt.com/reference/resource-configs/postgres-configs#indexes\" rel=\"noreferrer\">dbt docs</a>:</p>\n<pre class=\"lang-sql prettyprint-override\"><code>{{ config(\n    materialized = 'table',\n    indexes=[\n      {'columns': ['column_a'], 'type': 'hash'},\n      {'columns': ['column_a', 'column_b'], 'unique': True},\n    ]\n)}}\n\nselect ...\n</code></pre>\n"
+}

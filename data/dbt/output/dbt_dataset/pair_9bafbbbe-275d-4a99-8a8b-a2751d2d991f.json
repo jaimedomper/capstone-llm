@@ -1,0 +1,5 @@
+{
+    "title": "Using if block in dbt models",
+    "question_body": "<p>Apologies for asking dumb question. But I tried many different approaches but none of them seems to work.</p>\n<p>I have a requirement to select data from 2 different tables based on the variable. I am trying to do that in dbt models with if statement but it doesn't seem to work.</p>\n<p>Model looks something like thins:</p>\n<pre><code>SELECT \n*\nFROM\n{% if enable_whitelisting == 'true' %}\n    {{ ref('accounts_whitelisted') }}    accounts\n{% else %}\n        {{ ref('accounts') }}   accounts\n{% endif %}\n</code></pre>\n<p>Any help is appreciated.</p>\n<p>Thanks in advance.</p>\n",
+    "answer_body": "<p>I got this working eventually. Have to put the variable name within the <strong>var()</strong></p>\n<pre><code>SELECT \n*\nFROM\n{% if var('enable_whitelisting') == 'true' %}\n    {{ ref('accounts_whitelisted') }}    accounts\n{% else %}\n        {{ ref('accounts') }}   accounts\n{% endif %}\n</code></pre>\n"
+}

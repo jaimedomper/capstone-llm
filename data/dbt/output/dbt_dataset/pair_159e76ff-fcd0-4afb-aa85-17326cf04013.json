@@ -1,0 +1,5 @@
+{
+    "title": "dbt ref() vs source()",
+    "question_body": "<p>I\u2019m trying to make one model in dbt depend on another (trying to run the second model after the first one is completely finished), but I\u2019m confused, when to use <code>ref()</code> or <code>source()</code>?</p>\n<p>What is the difference between them?</p>\n",
+    "answer_body": "<p>Using <code>ref</code> creates the lineage for your DAG and will run the predecessor models. Using <code>source</code> references a base table that is not necessarily a model. Rule of thumb is use <code>source</code> in your base models and everything else should use <code>ref</code>.</p>\n<p>Example - Green nodes represent tables ingested into your DWH. The blue/red nodes are DBT models.\n<a href=\"https://i.sstatic.net/n7R7I.png\" rel=\"noreferrer\"><img src=\"https://i.sstatic.net/n7R7I.png\" alt=\"enter image description here\" /></a></p>\n"
+}

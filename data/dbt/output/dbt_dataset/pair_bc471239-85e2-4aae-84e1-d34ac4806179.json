@@ -1,0 +1,5 @@
+{
+    "title": "DBT - [WARNING]: Did not find matching node for patch",
+    "question_body": "<p>I keep getting the error below when I use <em>dbt run</em> - I can't find anything on why this error occurs or how to fix it within the dbt documentation.</p>\n<pre><code>[WARNING]: Did not find matching node for patch with name 'vGenericView' in the 'models' section of file 'models\\generic_schema\\schema.sql'\n</code></pre>\n",
+    "answer_body": "<p>did you by chance recently upgrade to dbt 1.0.0? If so, this means that you have a model, <code>vGenericView</code> defined in a <code>schema.yml</code> but you don't have a <code>vGenericView.sql</code> model file to which it corresponds.</p>\n"
+}

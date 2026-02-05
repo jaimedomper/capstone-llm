@@ -1,0 +1,5 @@
+{
+    "title": "Write dbt test for positive values",
+    "question_body": "<p>Is there an easy way to write a test for a column being positive in dbt?</p>\n<p><code>accepted_values</code> doesn't seem to work for continuous variables.</p>\n<p>I know you can write queries in <code>./tests</code> but it looks like an overkill for such a simple thing.</p>\n",
+    "answer_body": "<p>You could use <a href=\"https://github.com/dbt-labs/dbt-utils#expression_is_true-source\" rel=\"noreferrer\"><code>dbt_utils.expression_is_true</code></a></p>\n<pre><code>version: 2\n\nmodels:\n  - name: model_name\n    tests:\n      - dbt_utils.expression_is_true:\n          expression: &quot;col_a &gt; 0&quot;\n</code></pre>\n"
+}

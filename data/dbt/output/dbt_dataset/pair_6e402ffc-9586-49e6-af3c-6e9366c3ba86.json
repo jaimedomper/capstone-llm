@@ -1,0 +1,5 @@
+{
+    "title": "What is the .user.yml file? What is its purpose?",
+    "question_body": "<p>I'm starting with DBT. When I ran my project it created a <code>.user.yml</code> file. Its content:</p>\n\n<pre><code>{id: c8e8abd2-09a3-4699-b444-3ef7ee5b04e5}\n</code></pre>\n\n<p>It seems from <a href=\"https://github.com/fishtown-analytics/dbt/issues/1645\" rel=\"noreferrer\">this github issue</a> that it's some kind of cookie, but I could not find any info anywhere on what its role is.</p>\n\n<p>Can someone explain the purpose of this file? Should I add it to my <code>.gitignore</code>?</p>\n",
+    "answer_body": "<p>Just got answered on the dbt slack.</p>\n<p>The file just contains a cookie for dbt's anonymous usage tracking. It happened to land in my repo because I placed my <code>profiles.yml</code> in my repo. (my credentials are in environment variables). But normally it's rather created in <code>~/.dbt</code></p>\n"
+}

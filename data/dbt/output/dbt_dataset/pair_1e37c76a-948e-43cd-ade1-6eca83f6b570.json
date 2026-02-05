@@ -1,0 +1,5 @@
+{
+    "title": "Can dbt macros accept other macros as arguments?",
+    "question_body": "<p>I am curious if I can pass macros into another macro like this:</p>\n<pre class=\"lang-sql prettyprint-override\"><code>{% macro my_macro(a, b, another_macro) %}\n  ...\n  {{ another_macro(a,b) }}\n  ...\n{% endmacro %}\n</code></pre>\n<p><strong>BONUS:</strong>\nIf dbt's framework can allow it am able to how can I pass arguments to it?</p>\n<p>In R it would look like</p>\n<pre><code>my_callable_function &lt;- function(another_function, ...) {\n  another_function(...)\n}\n</code></pre>\n",
+    "answer_body": "<p>A conversation on dbt cloud's <a href=\"https://getdbt.slack.com/archives/C2JRRQDTL/p1630952469173300\" rel=\"noreferrer\">slack</a> and a bit of poking and prodding yielded me the answer.</p>\n<p><strong>Yes</strong> you can pass nested macros into a macro much like nested functions in different languages!</p>\n<p>An example could look like this!</p>\n<pre><code>{% macro base_macro(func1, arg1, arg2) %}\n  {{ func1(arg1, arg2) }}\n{% endmacro %}\n</code></pre>\n"
+}
