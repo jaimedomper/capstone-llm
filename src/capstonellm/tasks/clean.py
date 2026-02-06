@@ -6,6 +6,8 @@ import json
 from pyspark.sql.functions import col, explode
 
 logger = logging.getLogger(__name__)
+#set logging level to info
+logger.setLevel(logging.INFO)
 
 def write_to_s3_partition(partition_iterator, bucket_name, base_path):
     """
@@ -108,6 +110,7 @@ def main():
             .config("spark.jars.packages", "org.apache.hadoop:hadoop-aws:3.3.4")
             .getOrCreate()
         )
+        session.sparkContext.setLogLevel("INFO")
         for tag in tags:
             clean(session, args.env, tag)
     else:

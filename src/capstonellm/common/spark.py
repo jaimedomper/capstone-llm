@@ -68,6 +68,7 @@ class ClosableSparkSession:
 
         # create the actual session
         self._spark_session = spark_builder.getOrCreate()
+        self._spark_session.sparkContext.setLogLevel("INFO")
 
         return self._spark_session
 

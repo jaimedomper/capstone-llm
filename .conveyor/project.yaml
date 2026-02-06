@@ -1,9 +1,9 @@
 docker:
     path: .
-id: f6f49228-b451-46e8-a27e-309862803fd0
+id: 8fabfd35-c278-4478-8222-4eeebe7874e6
 ide:
     filename: ide.yaml
-name: capstone-test
+name: captstone-llm-jaime
 resources:
     path: resources
 streaming:

@@ -35,7 +35,7 @@ with DAG(
     default_args=default_args,
     schedule=None,
     catchup=False,
-    max_active_tasks=2,
+    max_active_tasks=1,
 ) as dag:
     start_dag = EmptyOperator(task_id="start_dag")
     end_dag = EmptyOperator(task_id="end_dag")
@@ -44,6 +44,7 @@ with DAG(
     clean_tasks = []
     for tag in TAGS:
         task = DockerOperator(
+            
             task_id=f"clean_{tag.replace('-', '_')}",
             image="clean_task_image_local",
             api_version="auto",
